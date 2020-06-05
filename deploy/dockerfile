@@ -1,0 +1,4 @@
+FROM golang:1.14.2-buster
+COPY ./encrypt-srv /shunjiecloud/encrypt-srv
+COPY ./config.json /shunjiecloud/config.json
+ENTRYPOINT ["/shunjiecloud/encrypt-srv"]
