@@ -14,7 +14,7 @@ import (
 type EncryptService struct{}
 
 func (h *EncryptService) GetPublicKey(ctx context.Context, in *proto.GetPublicKeyRequest, out *proto.GetPublicKeyResponse) error {
-	out.PublicKey = modules.ModuleContext.RawPublicKey
+	out.PublicKey = base64.StdEncoding.EncodeToString([]byte(modules.ModuleContext.RawPublicKey))
 	return nil
 }
 
