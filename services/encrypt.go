@@ -4,7 +4,7 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/rsa"
-	"crypto/sha256"
+	"crypto/sha1"
 	"encoding/base64"
 
 	proto "github.com/shunjiecloud-proto/encrypt/proto"
@@ -19,7 +19,7 @@ func (h *EncryptService) GetPublicKey(ctx context.Context, in *proto.GetPublicKe
 }
 
 func (h *EncryptService) Encrypt(ctx context.Context, in *proto.EncryptRequest, out *proto.EncryptResponse) error {
-	ciphertext, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, modules.ModuleContext.DefaultKeyPair.PublicKey, []byte(in.Original), nil)
+	ciphertext, err := rsa.EncryptOAEP(sha1.New(), rand.Reader, modules.ModuleContext.DefaultKeyPair.PublicKey, []byte(in.Original), nil)
 	if err != nil {
 		return err
 	}
@@ -35,7 +35,7 @@ func (h *EncryptService) Decrypt(ctx context.Context, in *proto.DecryptRequest, 
 	if err != nil {
 		return err
 	}
-	original, err := rsa.DecryptOAEP(sha256.New(), rand.Reader, modules.ModuleContext.DefaultKeyPair.PrivateKey, cipherText, nil)
+	original, err := rsa.DecryptOAEP(sha1.New(), rand.Reader, modules.ModuleContext.DefaultKeyPair.PrivateKey, cipherText, nil)
 	if err != nil {
 		return err
 	}
