@@ -110,13 +110,13 @@ func (h *EncryptService) GetPublicKey(ctx context.Context, in *proto.GetPublicKe
 	}
 	//  返回
 	out.PublicKey = base64.StdEncoding.EncodeToString(buffPublicKey.Bytes())
-	out.PublicKeyId = id
+	out.Id = id
 	return nil
 }
 
 func (h *EncryptService) Encrypt(ctx context.Context, in *proto.EncryptRequest, out *proto.EncryptResponse) error {
 	//  取得密钥对
-	keyPair, err := getKeyPair(modules.ModuleContext.Redis, in.PublicKeyId)
+	keyPair, err := getKeyPair(modules.ModuleContext.Redis, in.Id)
 	if err != nil {
 		return err
 	}
@@ -145,7 +145,7 @@ func (h *EncryptService) Encrypt(ctx context.Context, in *proto.EncryptRequest, 
 
 func (h *EncryptService) Decrypt(ctx context.Context, in *proto.DecryptRequest, out *proto.DecryptResponse) error {
 	//  取得密钥对
-	keyPair, err := getKeyPair(modules.ModuleContext.Redis, in.PublicKeyId)
+	keyPair, err := getKeyPair(modules.ModuleContext.Redis, in.Id)
 	if err != nil {
 		return err
 	}
