@@ -7,9 +7,9 @@ import (
 	"github.com/micro/go-micro/v2/config/source/file"
 )
 
-type KeyPairConfig struct {
-	PublicKey  string `json:"publicKey"`
-	PrivateKey string `json:"privateKey"`
+type RedisConfig struct {
+	Address string `json:"address"`
+	Port    int    `json:"port"`
 }
 
 func setupConfig() {
